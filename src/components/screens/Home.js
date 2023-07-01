@@ -7,16 +7,16 @@ import {
   Text,
   TouchableHighlight,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import QuizCards from '../includes/QuizCards';
-import Search from '../../assets/icons/search.svg';
+import SearchLogo from '../../assets/icons/search.svg';
 
 export default function Home() {
   const [categories, setCategories] = useState([
-    {id: 1, name: 'All'},
-    {id: 2, name: 'Branding'},
-    {id: 3, name: 'Animation'},
-    {id: 4, name: 'Website'},
+    { id: 1, name: 'All' },
+    { id: 2, name: 'Branding' },
+    { id: 3, name: 'Animation' },
+    { id: 4, name: 'Website' },
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -39,7 +39,7 @@ export default function Home() {
   ]);
 
   const renderCategories = () =>
-    categories.map(category => (
+    categories.map((category) => (
       <TouchableHighlight
         key={category.id}
         style={[
@@ -49,45 +49,54 @@ export default function Home() {
           },
         ]}
         onPress={() => setSelectedCategory(category.id)}
-        underlayColor={selectedCategory === category.id ? '#000' : '#fff'}>
+        underlayColor={selectedCategory === category.id ? '#000' : '#fff'}
+      >
         <Text
           style={[
             styles.categoryText,
-            selectedCategory === category.id && {color: '#fff'},
-          ]}>
+            selectedCategory === category.id && { color: '#fff' },
+          ]}
+        >
           {category.name}
         </Text>
       </TouchableHighlight>
     ));
 
   const renderQuestions = () =>
-    questions.map(question => (
+    questions.map((question) => (
       <QuizCards key={question.id} question={question} />
     ));
 
   return (
     <View style={styles.mainContainer}>
-      <View style={styles.navbarMain}>
-        <TouchableOpacity>
-          <Image
-            source={require('../../assets/icons/Logo-p.png')}
-            style={styles.profile}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.searchContainer}>
-          <Search width={25} height={25} style={styles.searchLogo} />
-        </TouchableOpacity>
-      </View>
-      <View>
-        <ScrollView
-          contentContainerStyle={styles.filters}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}>
-          {renderCategories()}
-        </ScrollView>
-      </View>
-      <View>{renderQuestions()}</View>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.contentContainer}>
+          <View style={styles.navbarMain}>
+            <TouchableOpacity>
+              <Image
+                source={require('../../assets/icons/Logo-p.png')}
+                style={styles.profile}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.searchContainer}>
+              <SearchLogo width={25} height={25} style={styles.searchLogo} />
+            </TouchableOpacity>
+          </View>
+          <View>
+            <ScrollView
+              contentContainerStyle={styles.filters}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            >
+              {renderCategories()}
+            </ScrollView>
+          </View>
+          {renderQuestions()}
+        </View>
+      </ScrollView>
       <View style={styles.bottomCard}></View>
     </View>
   );
@@ -95,7 +104,14 @@ export default function Home() {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    backgroundColor: '#E8E8E8',
+    flex: 1,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: '8%',
+  },
+  contentContainer: {
+    paddingBottom: 20,
   },
   navbarMain: {
     flexDirection: 'row',
@@ -136,5 +152,14 @@ const styles = StyleSheet.create({
   filters: {
     paddingLeft: 20,
   },
-  bottomCard: {},
+  bottomCard: {
+    backgroundColor: '#fff',
+    height: '6%',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 });
