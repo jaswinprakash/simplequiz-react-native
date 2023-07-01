@@ -2,13 +2,29 @@ import {View, Text, Image, TouchableOpacity, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 
 export default function QuizCards({question}) {
-  const answeredPercentage = 60;
-  const balancePercentage = 40;
-
   const [selectedOption, setSelectedOption] = useState(null);
 
+  const [answeredPercentage, setAnsweredPercentage] = useState(null);
+  const [balancePercentage, setBalancePercentage] = useState(null);
+
+  const [isSingleViewOneDisabled, setIsSingleViewOneDisabled] = useState(false);
+  const [isSingleViewTwoDisabled, setIsSingleViewTwoDisabled] = useState(false);
+
   const handleOptionSelection = option => {
+    if (option === 'trueOption') {
+      setAnsweredPercentage(60);
+      setBalancePercentage(40);
+    } else {
+      setAnsweredPercentage(null);
+      setBalancePercentage(null);
+    }
     setSelectedOption(option);
+
+    if (option === 'trueOption') {
+      setIsSingleViewTwoDisabled(true);
+    } else {
+      setIsSingleViewOneDisabled(true);
+    }
   };
 
   return (
@@ -16,13 +32,14 @@ export default function QuizCards({question}) {
       <View style={styles.questionContainer}>
         <Text style={styles.questionText}>{question.question}</Text>
         <View style={styles.optionContainer}>
-
           <TouchableOpacity
             style={[
               styles.singleViewOne,
               selectedOption === 'trueOption' && styles.selectedOption,
+              isSingleViewOneDisabled && styles.disabledOption,
             ]}
-            onPress={() => handleOptionSelection('trueOption')}>
+            onPress={() => handleOptionSelection('trueOption')}
+            disabled={isSingleViewOneDisabled}>
             <Text
               style={[
                 styles.firstText,
@@ -41,8 +58,10 @@ export default function QuizCards({question}) {
             style={[
               styles.singleViewTwo,
               selectedOption === 'falseOption' && styles.selectedOption,
+              isSingleViewTwoDisabled && styles.disabledOption,
             ]}
-            onPress={() => handleOptionSelection('falseOption')}>
+            onPress={() => handleOptionSelection('falseOption')}
+            disabled={isSingleViewTwoDisabled}>
             <Text
               style={[
                 styles.secondText,
@@ -61,10 +80,21 @@ export default function QuizCards({question}) {
 
         <View style={styles.answerBar}>
           <View style={[styles.answered, {flex: answeredPercentage}]}>
-            <Text style={styles.answeredText}>{answeredPercentage}%</Text>
+            {selectedOption === 'trueOption' ? (
+              <Text style={styles.answeredText}>{answeredPercentage}%</Text>
+            ) : (
+              <Text style={styles.answeredText}></Text>
+            )}
           </View>
           <View style={[styles.balance, {flex: balancePercentage}]}>
-            <Text style={styles.balanceText}>{balancePercentage}%</Text>
+            {selectedOption === null && (
+              <Text style={styles.balanceText}></Text>
+            )}
+            {selectedOption !== null && balancePercentage !== null && (
+              <Text style={styles.balanceText}>
+                {balancePercentage !== 0 ? `${balancePercentage}%` : ''}
+              </Text>
+            )}
           </View>
         </View>
       </View>
@@ -126,11 +156,12 @@ const styles = StyleSheet.create({
     width: 150,
     aspectRatio: 395 / 321,
   },
+
   firstText: {
     position: 'absolute',
     left: 5,
     bottom: 115,
-    backgroundColor: '#355FFE',
+    backgroundColor: '#E8E8E8',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -142,6 +173,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     color: '#fff',
   },
+
   secondText: {
     position: 'absolute',
     left: 5,
@@ -188,5 +220,8 @@ const styles = StyleSheet.create({
   balanceText: {
     textAlign: 'center',
     color: '#355FFE',
+  },
+  disabledOption: {
+    opacity: 0.5,
   },
 });
