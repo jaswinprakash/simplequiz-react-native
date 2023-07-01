@@ -7,16 +7,16 @@ import {
   Text,
   TouchableHighlight,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import QuizCards from '../includes/QuizCards';
 import SearchLogo from '../../assets/icons/search.svg';
 
 export default function Home() {
   const [categories, setCategories] = useState([
-    { id: 1, name: 'All' },
-    { id: 2, name: 'Branding' },
-    { id: 3, name: 'Animation' },
-    { id: 4, name: 'Website' },
+    {id: 1, name: 'All'},
+    {id: 2, name: 'Branding'},
+    {id: 3, name: 'Animation'},
+    {id: 4, name: 'Website'},
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -39,7 +39,7 @@ export default function Home() {
   ]);
 
   const renderCategories = () =>
-    categories.map((category) => (
+    categories.map(category => (
       <TouchableHighlight
         key={category.id}
         style={[
@@ -49,21 +49,19 @@ export default function Home() {
           },
         ]}
         onPress={() => setSelectedCategory(category.id)}
-        underlayColor={selectedCategory === category.id ? '#000' : '#fff'}
-      >
+        underlayColor={selectedCategory === category.id ? '#000' : '#fff'}>
         <Text
           style={[
             styles.categoryText,
-            selectedCategory === category.id && { color: '#fff' },
-          ]}
-        >
+            selectedCategory === category.id && {color: '#fff'},
+          ]}>
           {category.name}
         </Text>
       </TouchableHighlight>
     ));
 
   const renderQuestions = () =>
-    questions.map((question) => (
+    questions.map(question => (
       <QuizCards key={question.id} question={question} />
     ));
 
@@ -71,8 +69,7 @@ export default function Home() {
     <View style={styles.mainContainer}>
       <ScrollView
         contentContainerStyle={styles.scrollContainer}
-        showsVerticalScrollIndicator={false}
-      >
+        showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
           <View style={styles.navbarMain}>
             <TouchableOpacity>
@@ -89,12 +86,15 @@ export default function Home() {
             <ScrollView
               contentContainerStyle={styles.filters}
               horizontal={true}
-              showsHorizontalScrollIndicator={false}
-            >
+              showsHorizontalScrollIndicator={false}>
               {renderCategories()}
             </ScrollView>
           </View>
-          {renderQuestions()}
+          <View style={styles.questionContainer}>
+            <View style={styles.cardOne}></View>
+            <View style={styles.cardTwo}></View>
+            {renderQuestions()}
+          </View>
         </View>
       </ScrollView>
       <View style={styles.bottomCard}></View>
@@ -105,6 +105,7 @@ export default function Home() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
+    backgroundColor: '#E8E8E8',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -162,4 +163,33 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
+  questionContainer:{
+    position: 'relative',
+  },
+  cardOne:{
+    backgroundColor: '#eee',
+    height: '6%',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    position: 'absolute',
+    bottom: 380,
+    left: 35,
+    right: 0,
+    width: "82%",
+    elevation:4,
+    zIndex:-1
+  },
+  cardTwo:{
+    backgroundColor: '#eee',
+    height: '6%',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    position: 'absolute',
+    bottom: 397,
+    left: 55,
+    right: 0,
+    width:"70%",
+    elevation:4,
+    zIndex:-2
+  }
 });
