@@ -37,86 +37,105 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
   };
 
   return (
-    <View style={styles.questionContainer}>
-      <Text style={styles.questionText}>{question.question}</Text>
-      <View style={styles.optionContainer}>
-        <TouchableOpacity
-          style={[
-            styles.singleViewOne,
-            selectedOption === 'trueOption' && styles.selectedOption,
-            isSingleViewOneDisabled && styles.disabledOption,
-          ]}
-          onPress={() => handleOptionSelection('trueOption')}
-          disabled={isSingleViewOneDisabled}>
-          <Text
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('SubPage', {
+          selectedOption,
+          question,
+          answeredPercentage,
+          balancePercentage,
+        })
+      }>
+      <View style={styles.questionContainer}>
+        <Text style={styles.questionText}>{question.question}</Text>
+        <View style={styles.optionContainer}>
+          <TouchableOpacity
             style={[
-              styles.firstText,
-              selectedOption === 'trueOption'
-                ? styles.selectedText
-                : styles.unselectedText,
-            ]}>
-            {question.options.trueOption.value}
-          </Text>
-          <Image
-            style={styles.imageOne}
-            source={question.options.trueOption.image}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[
-            styles.singleViewTwo,
-            selectedOption === 'falseOption' && styles.selectedOption,
-            isSingleViewTwoDisabled && styles.disabledOption,
-          ]}
-          onPress={() => handleOptionSelection('falseOption')}
-          disabled={isSingleViewTwoDisabled}>
-          <Text
-            style={[
-              styles.secondText,
-              selectedOption === 'falseOption'
-                ? styles.selectedText
-                : styles.unselectedText,
-            ]}>
-            {question.options.falseOption.value}
-          </Text>
-          <Image
-            style={styles.imageTwo}
-            source={question.options.falseOption.image}
-          />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.answerBar}>
-        <View style={[styles.answered, {flex: answeredPercentage}]}>
-          {selectedOption === 'trueOption' ? (
-            <Text style={styles.answeredText}>{answeredPercentage}%</Text>
-          ) : (
-            <Text style={styles.answeredText}></Text>
-          )}
-        </View>
-        <View style={[styles.balance, {flex: balancePercentage}]}>
-          {selectedOption === null && <Text style={styles.balanceText}></Text>}
-          {selectedOption !== null && balancePercentage !== null && (
-            <Text style={styles.balanceText}>
-              {balancePercentage !== 0 ? `${balancePercentage}%` : ''}
+              styles.singleViewOne,
+              selectedOption === 'trueOption' && styles.selectedOption,
+              isSingleViewOneDisabled && styles.disabledOption,
+            ]}
+            onPress={() => handleOptionSelection('trueOption')}
+            disabled={isSingleViewOneDisabled}>
+            <Text
+              style={[
+                styles.firstText,
+                selectedOption === 'trueOption'
+                  ? styles.selectedText
+                  : styles.unselectedText,
+              ]}>
+              {question.options.trueOption.value}
             </Text>
-          )}
+            <Image
+              style={styles.imageOne}
+              source={question.options.trueOption.image}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.singleViewTwo,
+              selectedOption === 'falseOption' && styles.selectedOption,
+              isSingleViewTwoDisabled && styles.disabledOption,
+            ]}
+            onPress={() => handleOptionSelection('falseOption')}
+            disabled={isSingleViewTwoDisabled}>
+            <Text
+              style={[
+                styles.secondText,
+                selectedOption === 'falseOption'
+                  ? styles.selectedText
+                  : styles.unselectedText,
+              ]}>
+              {question.options.falseOption.value}
+            </Text>
+            <Image
+              style={styles.imageTwo}
+              source={question.options.falseOption.image}
+            />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.answerBar}>
+          <View style={[styles.answered, {flex: answeredPercentage}]}>
+            {selectedOption === 'trueOption' ? (
+              <Text style={styles.answeredText}>{answeredPercentage}%</Text>
+            ) : (
+              <Text style={styles.answeredText}></Text>
+            )}
+          </View>
+          <View style={[styles.balance, {flex: balancePercentage}]}>
+            {selectedOption === null && (
+              <Text style={styles.balanceText}></Text>
+            )}
+            {selectedOption !== null && balancePercentage !== null && (
+              <Text style={styles.balanceText}>
+                {balancePercentage !== 0 ? `${balancePercentage}%` : ''}
+              </Text>
+            )}
+          </View>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.inputText}
+            placeholder="Share you think"
+            placeholderTextColor="#A6A6A6"></TextInput>
+
+          <TouchableOpacity
+            style={styles.sendBtn}
+            onPress={() =>
+              navigation.navigate('SubPage', {
+                selectedOption,
+                question,
+                answeredPercentage,
+                balancePercentage,
+              })
+            }>
+            <SendLogo width={27} height={27} style={styles.sendLogo} />
+          </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.inputContainer}>
-        <TextInput
-          style={styles.inputText}
-          placeholder="Share you think"
-          placeholderTextColor="#A6A6A6"></TextInput>
-          
-        <TouchableOpacity
-          style={styles.sendBtn}
-          onPress={() => navigation.navigate('SubPage', {selectedOption,question,answeredPercentage,balancePercentage})}>
-          <SendLogo width={27} height={27} style={styles.sendLogo} />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 

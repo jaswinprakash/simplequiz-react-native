@@ -100,10 +100,7 @@ export default function Home({navigation}) {
           <View style={styles.questionContainer}>
             <View style={styles.cardOne}></View>
             <View style={styles.cardTwo}></View>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SubPage', {selectedOption})}>
-              {renderQuestions()}
-            </TouchableOpacity>
+            {renderQuestions()}
           </View>
         </View>
       </ScrollView>

@@ -11,14 +11,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.mainContainer}>
-      <Stack.Navigator screenOptions={{headerShown:false}}>
-        
-          <Stack.Screen name='Home' component={Home}/>
-          <Stack.Screen name='SubPage' component={SubPage}/>
-          
-      </Stack.Navigator>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="SubPage" component={SubPage} />
+        </Stack.Navigator>
       </SafeAreaView>
-
     </NavigationContainer>
   );
 }

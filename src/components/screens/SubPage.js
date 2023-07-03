@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import ArrowLogo from '../../assets/icons/Arrow.svg';
 import MenuLogo from '../../assets/icons/Menu.svg';
 import ReplayLogo from '../../assets/icons/Comment.svg';
@@ -15,85 +15,83 @@ import LikeLogo from '../../assets/icons/Love-fill.svg';
 import SendLogo from '../../assets/icons/Send.svg';
 
 export default function SubPage({navigation, route}) {
+  const [comments, setComments] = useState([
+    {
+      id: 1,
+      name: 'A',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#7F48E2',
+    },
+    {
+      id: 2,
+      name: 'D',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#355FFE',
+    },
+    {
+      id: 3,
+      name: 'H',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#E80A19',
+    },
+    {
+      id: 4,
+      name: 'A',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#7F48E2',
+    },
+    {
+      id: 5,
+      name: 'A',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#7F48E2',
+    },
+    {
+      id: 6,
+      name: 'D',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#355FFE',
+    },
+    {
+      id: 7,
+      name: 'H',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#E80A19',
+    },
+    {
+      id: 8,
+      name: 'A',
+      comments: 'lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum',
+      reply: 3,
+      like: 12,
+      time: 3,
+      text_color: '#7F48E2',
+    },
+  ]);
+  const {selectedOption, answeredPercentage, balancePercentage} = route.params;
 
-  const [comments,setComments]=useState([
-    {
-      id:1,
-      name:"A",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#7F48E2"
-    },
-    {
-      id:2,
-      name:"D",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#355FFE"
-    },
-    {
-      id:3,
-      name:"H",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#E80A19"
-    },
-    {
-      id:4,
-      name:"A",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#7F48E2"
-    },
-    {
-      id:5,
-      name:"A",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#7F48E2"
-    },
-    {
-      id:6,
-      name:"D",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#355FFE"
-    },
-    {
-      id:7,
-      name:"H",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#E80A19"
-    },
-    {
-      id:8,
-      name:"A",
-      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
-      reply:3,
-      like:12,
-      time:3,
-      text_color:"#7F48E2"
-    },
-  ])
-  const {selectedOption,questions,answeredPercentage,balancePercentage} = route.params;
-
-
-  console.log(route.params.balancePercentage);
+  console.log(route.params);
 
   return (
     <View style={styles.mainContainer}>
@@ -108,50 +106,93 @@ export default function SubPage({navigation, route}) {
         </TouchableOpacity>
       </View>
       <View style={styles.answerContainer}>
-        <Text style={styles.questionText}>{route.params.question.question}</Text>
+        <Text style={styles.questionText}>
+          {route.params.question.question}
+        </Text>
         <View style={styles.optionContainer}>
           <View style={styles.optionOne}>
-            <Text style={[styles.selectedTextOne, selectedOption === "trueOption" && { backgroundColor: "#355FFE" }]}>{route.params.question.options.trueOption.value}</Text>
+            <Text
+              style={[
+                styles.selectedTextOne,
+                selectedOption === 'trueOption' && {backgroundColor: '#355FFE'},
+              ]}>
+              {route.params.question.options.trueOption.value}
+            </Text>
 
             <Image
-              style={[styles.imageOne, selectedOption === "falseOption" && styles.disabledOption]}
+              style={[
+                styles.imageOne,
+                selectedOption === 'falseOption' && styles.disabledOption,
+              ]}
               source={route.params.question.options.trueOption.image}
             />
           </View>
           <View style={styles.optionTwo}>
-            <Text style={[styles.selectedTextOne, selectedOption === "falseOption" && { backgroundColor: "#355FFE" }]}>{route.params.question.options.falseOption.value}</Text>
+            <Text
+              style={[
+                styles.selectedTextOne,
+                selectedOption === 'falseOption' && {
+                  backgroundColor: '#355FFE',
+                },
+              ]}>
+              {route.params.question.options.falseOption.value}
+            </Text>
             <Image
-              style={[styles.imageTwo,selectedOption === "trueOption" && styles.disabledOption]}
+              style={[
+                styles.imageTwo,
+                selectedOption === 'trueOption' && styles.disabledOption,
+              ]}
               source={route.params.question.options.falseOption.image}
             />
           </View>
         </View>
-        <View style={styles.answerBar}></View>
-      </View>
-      <ScrollView contentContainerStyle={styles.commentSectionMain}>
-        {comments.map(comment =>(
-        <View style={styles.commentSection} key={comment.id}>
-          <Text style={[styles.profileText,{ backgroundColor: comment.text_color }]}>{comment.name}</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              {comment.comments}
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>{comment.reply} Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>{comment.like} Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>{comment.time} Hours ago</Text>
-            </View>
+
+        <View style={styles.answerBar}>
+          <View style={[styles.answered, {flex: answeredPercentage}]}>
+            {selectedOption === 'trueOption' ? (
+              <Text style={styles.answeredText}>{answeredPercentage}%</Text>
+            ) : (
+              <Text style={styles.answeredText}></Text>
+            )}
+          </View>
+          <View style={[styles.balance, {flex: balancePercentage}]}>
+            {selectedOption === null && (
+              <Text style={styles.balanceText}></Text>
+            )}
+            {selectedOption !== null && balancePercentage !== null && (
+              <Text style={styles.balanceText}>
+                {balancePercentage !== 0 ? `${balancePercentage}%` : ''}
+              </Text>
+            )}
           </View>
         </View>
+      </View>
+      <ScrollView contentContainerStyle={styles.commentSectionMain}>
+        {comments.map(comment => (
+          <View style={styles.commentSection} key={comment.id}>
+            <Text
+              style={[
+                styles.profileText,
+                {backgroundColor: comment.text_color},
+              ]}>
+              {comment.name}
+            </Text>
+            <View style={styles.commentContainer}>
+              <Text style={styles.commentsText}>{comment.comments}</Text>
+              <View style={styles.commentOptions}>
+                <TouchableOpacity style={styles.replaySection}>
+                  <ReplayLogo width={18} height={18} marginRight={5} />
+                  <Text style={styles.replayText}>{comment.reply} Reply</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.likeSection}>
+                  <LikeLogo width={18} height={18} marginRight={5} />
+                  <Text style={styles.likeText}>{comment.like} Likes</Text>
+                </TouchableOpacity>
+                <Text style={styles.timeText}>{comment.time} Hours ago</Text>
+              </View>
+            </View>
+          </View>
         ))}
-        
-
       </ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
@@ -362,5 +403,33 @@ const styles = StyleSheet.create({
   },
   disabledOption: {
     opacity: 0.5,
+  },
+  answerBar: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    backgroundColor: '#E8E8E8',
+    borderRadius: 10,
+    position: 'relative',
+    overflow: 'hidden',
+    width: '87%',
+    marginBottom: 20,
+  },
+  answered: {
+    backgroundColor: '#355FFE',
+    justifyContent: 'center',
+    paddingVertical: 16,
+  },
+  answeredText: {
+    textAlign: 'center',
+    color: '#fff',
+    fontFamily: 'Inter-Medium',
+  },
+  balance: {
+    justifyContent: 'center',
+  },
+  balanceText: {
+    textAlign: 'center',
+    color: '#355FFE',
+    fontFamily: 'Inter-Medium',
   },
 });
