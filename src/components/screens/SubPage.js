@@ -7,18 +7,100 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import ArrowLogo from '../../assets/icons/Arrow.svg';
 import MenuLogo from '../../assets/icons/Menu.svg';
 import ReplayLogo from '../../assets/icons/Comment.svg';
 import LikeLogo from '../../assets/icons/Love-fill.svg';
 import SendLogo from '../../assets/icons/Send.svg';
 
-export default function SubPage() {
+export default function SubPage({navigation, route}) {
+
+  const [comments,setComments]=useState([
+    {
+      id:1,
+      name:"A",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#7F48E2"
+    },
+    {
+      id:2,
+      name:"D",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#355FFE"
+    },
+    {
+      id:3,
+      name:"H",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#E80A19"
+    },
+    {
+      id:4,
+      name:"A",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#7F48E2"
+    },
+    {
+      id:5,
+      name:"A",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#7F48E2"
+    },
+    {
+      id:6,
+      name:"D",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#355FFE"
+    },
+    {
+      id:7,
+      name:"H",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#E80A19"
+    },
+    {
+      id:8,
+      name:"A",
+      comments:"lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum",
+      reply:3,
+      like:12,
+      time:3,
+      text_color:"#7F48E2"
+    },
+  ])
+  const {selectedOption,questions,answeredPercentage,balancePercentage} = route.params;
+
+
+  console.log(route.params.balancePercentage);
+
   return (
     <View style={styles.mainContainer}>
       <View style={styles.navBarContainer}>
-        <TouchableOpacity style={styles.backBtn}>
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={() => navigation.goBack()}>
           <ArrowLogo width={27} height={27} />
         </TouchableOpacity>
         <TouchableOpacity style={styles.menuBtn}>
@@ -26,145 +108,50 @@ export default function SubPage() {
         </TouchableOpacity>
       </View>
       <View style={styles.answerContainer}>
-        <Text style={styles.questionText}>Which one is cleaner preview?</Text>
+        <Text style={styles.questionText}>{route.params.question.question}</Text>
         <View style={styles.optionContainer}>
           <View style={styles.optionOne}>
-            <Text style={styles.selectedTextOne}>1</Text>
+            <Text style={[styles.selectedTextOne, selectedOption === "trueOption" && { backgroundColor: "#355FFE" }]}>{route.params.question.options.trueOption.value}</Text>
+
             <Image
-              style={styles.imageOne}
-              source={require('../../assets/images/blurry.jpg')}
+              style={[styles.imageOne, selectedOption === "falseOption" && styles.disabledOption]}
+              source={route.params.question.options.trueOption.image}
             />
           </View>
           <View style={styles.optionTwo}>
-            <Text style={styles.selectedTextTwo}>2</Text>
+            <Text style={[styles.selectedTextOne, selectedOption === "falseOption" && { backgroundColor: "#355FFE" }]}>{route.params.question.options.falseOption.value}</Text>
             <Image
-              style={styles.imageTwo}
-              source={require('../../assets/images/clear.jpg')}
+              style={[styles.imageTwo,selectedOption === "trueOption" && styles.disabledOption]}
+              source={route.params.question.options.falseOption.image}
             />
           </View>
         </View>
         <View style={styles.answerBar}></View>
       </View>
       <ScrollView contentContainerStyle={styles.commentSectionMain}>
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
+        {comments.map(comment =>(
+        <View style={styles.commentSection} key={comment.id}>
+          <Text style={[styles.profileText,{ backgroundColor: comment.text_color }]}>{comment.name}</Text>
           <View style={styles.commentContainer}>
             <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
+              {comment.comments}
             </Text>
             <View style={styles.commentOptions}>
               <TouchableOpacity style={styles.replaySection}>
                 <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
+                <Text style={styles.replayText}>{comment.reply} Reply</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.likeSection}>
                 <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
+                <Text style={styles.likeText}>{comment.like} Likes</Text>
               </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
+              <Text style={styles.timeText}>{comment.time} Hours ago</Text>
             </View>
           </View>
         </View>
+        ))}
+        
 
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={styles.commentSection}>
-          <Text style={styles.profileText}>A</Text>
-          <View style={styles.commentContainer}>
-            <Text style={styles.commentsText}>
-              lorem ipsum lorem ipsum lorem ipsum lorem ipsum lorem ipsum
-            </Text>
-            <View style={styles.commentOptions}>
-              <TouchableOpacity style={styles.replaySection}>
-                <ReplayLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.replayText}>3 Reply</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.likeSection}>
-                <LikeLogo width={18} height={18} marginRight={5} />
-                <Text style={styles.likeText}>12 Likes</Text>
-              </TouchableOpacity>
-              <Text style={styles.timeText}>3 Hours ago</Text>
-            </View>
-          </View>
-        </View>
       </ScrollView>
       <View style={styles.inputContainer}>
         <TextInput
@@ -372,5 +359,8 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     width: 40,
     height: 40,
+  },
+  disabledOption: {
+    opacity: 0.5,
   },
 });

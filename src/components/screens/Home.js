@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 import QuizCards from '../includes/QuizCards';
 import SearchLogo from '../../assets/icons/search.svg';
 
-export default function Home() {
+export default function Home({navigation}) {
   const [categories, setCategories] = useState([
     {id: 1, name: 'All'},
     {id: 2, name: 'Branding'},
@@ -20,6 +20,8 @@ export default function Home() {
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const [selectedOption, setSelectedOption] = useState(null);
 
   const [questions, setQuestions] = useState([
     {
@@ -62,7 +64,12 @@ export default function Home() {
 
   const renderQuestions = () =>
     questions.map(question => (
-      <QuizCards key={question.id} question={question} />
+      <QuizCards
+        key={question.id}
+        question={question}
+        navigation={navigation}
+        onOptionSelection={option => setSelectedOption(option)}
+      />
     ));
 
   return (
@@ -93,7 +100,10 @@ export default function Home() {
           <View style={styles.questionContainer}>
             <View style={styles.cardOne}></View>
             <View style={styles.cardTwo}></View>
-            {renderQuestions()}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('SubPage', {selectedOption})}>
+              {renderQuestions()}
+            </TouchableOpacity>
           </View>
         </View>
       </ScrollView>
@@ -163,10 +173,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
   },
-  questionContainer:{
+  questionContainer: {
     position: 'relative',
   },
-  cardOne:{
+  cardOne: {
     backgroundColor: '#eee',
     height: '6%',
     borderTopLeftRadius: 15,
@@ -175,11 +185,11 @@ const styles = StyleSheet.create({
     bottom: 380,
     left: 35,
     right: 0,
-    width: "82%",
-    elevation:4,
-    zIndex:-1
+    width: '82%',
+    elevation: 4,
+    zIndex: -1,
   },
-  cardTwo:{
+  cardTwo: {
     backgroundColor: '#eee',
     height: '6%',
     borderTopLeftRadius: 15,
@@ -188,8 +198,8 @@ const styles = StyleSheet.create({
     bottom: 397,
     left: 55,
     right: 0,
-    width:"70%",
-    elevation:4,
-    zIndex:-2
-  }
+    width: '70%',
+    elevation: 4,
+    zIndex: -2,
+  },
 });
