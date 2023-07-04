@@ -10,8 +10,13 @@ import {
 import React, {useState} from 'react';
 import QuizCards from '../includes/QuizCards';
 import SearchLogo from '../../assets/icons/search.svg';
+import MyModal from '../includes/MyModal';
+
+
 
 export default function Home({navigation}) {
+
+
   const [categories, setCategories] = useState([
     {id: 1, name: 'All'},
     {id: 2, name: 'Branding'},
@@ -39,6 +44,18 @@ export default function Home({navigation}) {
       },
     },
   ]);
+
+
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
 
   const renderCategories = () =>
     categories.map(category => (
@@ -105,6 +122,9 @@ export default function Home({navigation}) {
         </View>
       </ScrollView>
       <View style={styles.bottomCard}></View>
+
+      <MyModal isVisible={modalVisible} closeModal={closeModal} navigation={navigation} />
+
     </View>
   );
 }

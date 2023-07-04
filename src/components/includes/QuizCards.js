@@ -38,6 +38,7 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
 
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       onPress={() =>
         navigation.navigate('SubPage', {
           selectedOption,

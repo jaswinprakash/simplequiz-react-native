@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Modal
 } from 'react-native';
 import React, {useState} from 'react';
 import ArrowLogo from '../../assets/icons/Arrow.svg';
@@ -13,6 +14,7 @@ import MenuLogo from '../../assets/icons/Menu.svg';
 import ReplayLogo from '../../assets/icons/Comment.svg';
 import LikeLogo from '../../assets/icons/Love-fill.svg';
 import SendLogo from '../../assets/icons/Send.svg';
+import MyModal from '../includes/MyModal';
 
 export default function SubPage({navigation, route}) {
   const [comments, setComments] = useState([
@@ -91,6 +93,16 @@ export default function SubPage({navigation, route}) {
   ]);
   const {selectedOption, answeredPercentage, balancePercentage} = route.params;
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
+
   console.log(route.params);
 
   return (
@@ -98,9 +110,10 @@ export default function SubPage({navigation, route}) {
       <View style={styles.navBarContainer}>
         <TouchableOpacity
           style={styles.backBtn}
-          onPress={() => navigation.goBack()}>
+          onPress={openModal}>
           <ArrowLogo width={27} height={27} />
         </TouchableOpacity>
+        <MyModal isVisible={modalVisible} closeModal={closeModal} navigation={navigation}/>
         <TouchableOpacity style={styles.menuBtn}>
           <MenuLogo width={27} height={27} />
         </TouchableOpacity>
