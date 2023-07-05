@@ -10,13 +10,8 @@ import {
 import React, {useState} from 'react';
 import QuizCards from '../includes/QuizCards';
 import SearchLogo from '../../assets/icons/search.svg';
-import MyModal from '../includes/MyModal';
-
-
 
 export default function Home({navigation}) {
-
-
   const [categories, setCategories] = useState([
     {id: 1, name: 'All'},
     {id: 2, name: 'Branding'},
@@ -34,28 +29,16 @@ export default function Home({navigation}) {
       question: 'Which one is cleaner preview?',
       options: {
         trueOption: {
-          image: require('../../assets/images/blurry.jpg'),
+          image: require('../../assets/images/blurry.png'),
           value: 1,
         },
         falseOption: {
-          image: require('../../assets/images/clear.jpg'),
+          image: require('../../assets/images/clear.png'),
           value: 2,
         },
       },
     },
   ]);
-
-
-  const [modalVisible, setModalVisible] = useState(false);
-
-  const openModal = () => {
-    setModalVisible(true);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-  };
-
 
   const renderCategories = () =>
     categories.map(category => (
@@ -103,7 +86,7 @@ export default function Home({navigation}) {
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.searchContainer}>
-              <SearchLogo width={25} height={25} style={styles.searchLogo} />
+              <SearchLogo width={25} height={25} />
             </TouchableOpacity>
           </View>
           <View>
@@ -122,9 +105,6 @@ export default function Home({navigation}) {
         </View>
       </ScrollView>
       <View style={styles.bottomCard}></View>
-
-      <MyModal isVisible={modalVisible} closeModal={closeModal} navigation={navigation} />
-
     </View>
   );
 }
@@ -161,7 +141,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  searchLogo: {},
   categoryView: {
     backgroundColor: '#fff',
     height: 50,

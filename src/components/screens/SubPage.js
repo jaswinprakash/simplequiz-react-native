@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  Modal
 } from 'react-native';
 import React, {useState} from 'react';
 import ArrowLogo from '../../assets/icons/Arrow.svg';
@@ -108,12 +107,15 @@ export default function SubPage({navigation, route}) {
   return (
     <View style={styles.mainContainer}>
       <View style={styles.navBarContainer}>
-        <TouchableOpacity
-          style={styles.backBtn}
-          onPress={openModal}>
+        <TouchableOpacity style={styles.backBtn} onPress={openModal}>
           <ArrowLogo width={27} height={27} />
         </TouchableOpacity>
-        <MyModal isVisible={modalVisible} closeModal={closeModal} navigation={navigation}/>
+        <MyModal
+          isVisible={modalVisible}
+          closeModal={closeModal}
+          navigation={navigation}
+          selectedOption={selectedOption}
+        />
         <TouchableOpacity style={styles.menuBtn}>
           <MenuLogo width={27} height={27} />
         </TouchableOpacity>
@@ -123,38 +125,42 @@ export default function SubPage({navigation, route}) {
           {route.params.question.question}
         </Text>
         <View style={styles.optionContainer}>
-          <View style={styles.optionOne}>
+          <View
+            style={[
+              styles.optionOne,
+              selectedOption === 'falseOption' && styles.disabledOption,
+            ]}>
             <Text
               style={[
                 styles.selectedTextOne,
-                selectedOption === 'trueOption' && {backgroundColor: '#355FFE'},
+                selectedOption === 'trueOption'
+                  ? styles.selectedText
+                  : styles.unselectedText,
               ]}>
               {route.params.question.options.trueOption.value}
             </Text>
 
             <Image
-              style={[
-                styles.imageOne,
-                selectedOption === 'falseOption' && styles.disabledOption,
-              ]}
+              style={styles.imageOne}
               source={route.params.question.options.trueOption.image}
             />
           </View>
-          <View style={styles.optionTwo}>
+          <View
+            style={[
+              styles.optionTwo,
+              selectedOption === 'trueOption' && styles.disabledOption,
+            ]}>
             <Text
               style={[
                 styles.selectedTextOne,
-                selectedOption === 'falseOption' && {
-                  backgroundColor: '#355FFE',
-                },
+                selectedOption === 'falseOption'
+                  ? styles.selectedText
+                  : styles.unselectedText,
               ]}>
               {route.params.question.options.falseOption.value}
             </Text>
             <Image
-              style={[
-                styles.imageTwo,
-                selectedOption === 'trueOption' && styles.disabledOption,
-              ]}
+              style={styles.imageTwo}
               source={route.params.question.options.falseOption.image}
             />
           </View>
@@ -268,6 +274,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 15,
     position: 'relative',
+    overflow: 'hidden',
   },
   optionTwo: {
     backgroundColor: '#E8E8E8',
@@ -275,12 +282,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     position: 'relative',
+    overflow: 'hidden',
   },
   selectedTextTwo: {
     position: 'absolute',
     left: 5,
     bottom: 115,
-    backgroundColor: '#E8E8E8',
+    // backgroundColor: '#AEAEAE',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -296,7 +304,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 5,
     bottom: 115,
-    backgroundColor: '#E8E8E8',
+    // backgroundColor: '#AEAEAE',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -308,15 +316,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     color: '#fff',
   },
+  unselectedText: {
+    backgroundColor: '#AEAEAE',
+  },
+  selectedText: {
+    backgroundColor: '#355FFE',
+  },
   imageOne: {
-    height: undefined,
+    height: 165,
     width: 165,
-    aspectRatio: 395 / 321,
   },
   imageTwo: {
-    height: undefined,
+    height: 165,
     width: 165,
-    aspectRatio: 395 / 321,
   },
   answerBar: {
     flexDirection: 'row',
@@ -384,10 +396,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Medium',
     fontSize: 13,
   },
-
-  answerContainer: {},
-  answerContainer: {},
-  answerContainer: {},
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',

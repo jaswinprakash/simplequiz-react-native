@@ -4,7 +4,6 @@ import Home from './src/components/screens/Home';
 import SubPage from './src/components/screens/SubPage';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MyModal from './src/components/includes/MyModal';
 
 export default function App() {
   const Stack = createNativeStackNavigator();

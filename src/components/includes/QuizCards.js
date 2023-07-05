@@ -132,7 +132,7 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
                 balancePercentage,
               })
             }>
-            <SendLogo width={27} height={27} style={styles.sendLogo} />
+            <SendLogo width={27} height={27} />
           </TouchableOpacity>
         </View>
       </View>
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     borderRadius: 15,
     position: 'relative',
+    overflow: 'hidden',
   },
   singleViewTwo: {
     backgroundColor: '#E8E8E8',
@@ -174,23 +175,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 15,
     position: 'relative',
+    overflow: 'hidden',
   },
   imageOne: {
-    height: undefined,
+    height: 165,
     width: 165,
-    aspectRatio: 395 / 321,
   },
   imageTwo: {
-    height: undefined,
+    height: 165,
     width: 165,
-    aspectRatio: 395 / 321,
   },
 
   firstText: {
     position: 'absolute',
     left: 5,
     bottom: 115,
-    backgroundColor: '#E8E8E8',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -207,7 +206,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 5,
     bottom: 115,
-    backgroundColor: '#E8E8E8',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -220,7 +218,7 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   unselectedText: {
-    backgroundColor: '#E8E8E8',
+    backgroundColor: '#AEAEAE',
   },
   selectedText: {
     backgroundColor: '#355FFE',

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   Text,
@@ -9,7 +9,22 @@ import {
 } from 'react-native';
 import CloseLogo from '../../assets/icons/Close.svg';
 
-export default function MyModal({isVisible, closeModal, navigation}) {
+export default function MyModal({
+  isVisible,
+  closeModal,
+  navigation,
+  selectedOption,
+}) {
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    if (selectedOption === 'trueOption') {
+      setScore(5);
+    } else {
+      setScore(0);
+    }
+  }, [selectedOption]);
+
   return (
     <Modal
       visible={isVisible}
@@ -26,13 +41,13 @@ export default function MyModal({isVisible, closeModal, navigation}) {
             source={require('../../assets/icons/P-Logo-popup.png')}
           />
           <Text style={styles.mainText}>
-            You got 5 points from answering the question
+            You got {score} points from answering the question
           </Text>
           <Text style={styles.subText}>
             Keep answering questions and earn points for asking later
           </Text>
           <TouchableOpacity
-            onPress={() => navigation.goBack()}
+            onPress={() => navigation.navigate('Home')}
             style={styles.backBtn}>
             <Text style={styles.backBtnTxt}>Back to home</Text>
           </TouchableOpacity>
@@ -69,24 +84,22 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'flex-end',
-
   },
-  closeLogo: {
-  },
+  closeLogo: {},
   mainText: {
     fontFamily: 'Inter-Bold',
     color: '#000',
     fontSize: 20,
     textAlign: 'center',
     width: 250,
-    marginBottom:10,
+    marginBottom: 10,
   },
   subText: {
     fontFamily: 'Inter-Medium',
     fontSize: 15,
     width: 250,
     textAlign: 'center',
-    marginBottom:20,
+    marginBottom: 20,
   },
   profileImg: {
     width: 150,
