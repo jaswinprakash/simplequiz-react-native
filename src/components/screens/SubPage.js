@@ -14,6 +14,10 @@ import ReplayLogo from '../../assets/icons/Comment.svg';
 import LikeLogo from '../../assets/icons/Love-fill.svg';
 import SendLogo from '../../assets/icons/Send.svg';
 import MyModal from '../includes/MyModal';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function SubPage({navigation, route}) {
   const [comments, setComments] = useState([
@@ -102,13 +106,17 @@ export default function SubPage({navigation, route}) {
     setModalVisible(false);
   };
 
-  console.log(route.params);
+  // console.log(route.params);
 
   return (
     <View style={styles.mainContainer}>
       <View style={styles.navBarContainer}>
-        <TouchableOpacity style={styles.backBtn} onPress={openModal}>
-          <ArrowLogo width={27} height={27} />
+        <TouchableOpacity
+          style={styles.backBtn}
+          onPress={
+            selectedOption === null ? () => navigation.goBack() : openModal
+          }>
+          <ArrowLogo width={wp('6%')} height={hp('3%')} />
         </TouchableOpacity>
         <MyModal
           isVisible={modalVisible}
@@ -117,9 +125,10 @@ export default function SubPage({navigation, route}) {
           selectedOption={selectedOption}
         />
         <TouchableOpacity style={styles.menuBtn}>
-          <MenuLogo width={27} height={27} />
+          <MenuLogo width={wp('6%')} height={hp('3%')} />
         </TouchableOpacity>
       </View>
+
       <View style={styles.answerContainer}>
         <Text style={styles.questionText}>
           {route.params.question.question}
@@ -186,7 +195,9 @@ export default function SubPage({navigation, route}) {
           </View>
         </View>
       </View>
-      <ScrollView contentContainerStyle={styles.commentSectionMain}>
+      <ScrollView
+        contentContainerStyle={styles.commentSectionMain}
+        showsVerticalScrollIndicator={true}>
         {comments.map(comment => (
           <View style={styles.commentSection} key={comment.id}>
             <Text
@@ -200,11 +211,19 @@ export default function SubPage({navigation, route}) {
               <Text style={styles.commentsText}>{comment.comments}</Text>
               <View style={styles.commentOptions}>
                 <TouchableOpacity style={styles.replaySection}>
-                  <ReplayLogo width={18} height={18} marginRight={5} />
+                  <ReplayLogo
+                    width={wp('5%')}
+                    height={hp('2.5%')}
+                    marginRight={5}
+                  />
                   <Text style={styles.replayText}>{comment.reply} Reply</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.likeSection}>
-                  <LikeLogo width={18} height={18} marginRight={5} />
+                  <LikeLogo
+                    width={wp('5%')}
+                    height={hp('2.5%')}
+                    marginRight={5}
+                  />
                   <Text style={styles.likeText}>{comment.like} Likes</Text>
                 </TouchableOpacity>
                 <Text style={styles.timeText}>{comment.time} Hours ago</Text>
@@ -217,9 +236,14 @@ export default function SubPage({navigation, route}) {
         <TextInput
           style={styles.inputText}
           placeholder="Share you think"
-          placeholderTextColor="#A6A6A6"></TextInput>
+          placeholderTextColor="#A6A6A6"
+        />
         <TouchableOpacity style={styles.sendBtn}>
-          <SendLogo width={27} height={27} style={styles.sendLogo} />
+          <SendLogo
+            width={wp('6%')}
+            height={hp('3%')}
+            style={styles.sendLogo}
+          />
         </TouchableOpacity>
       </View>
     </View>
@@ -230,26 +254,27 @@ const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
   },
+
   navBarContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: wp('6%'),
+    paddingVertical: hp('3%'),
   },
   backBtn: {
     backgroundColor: '#E8E8E8',
     borderRadius: 50,
-    width: 60,
-    height: 60,
+    width: wp('14%'),
+    height: hp('7%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   menuBtn: {
     backgroundColor: '#E8E8E8',
     borderRadius: 50,
-    width: 60,
-    height: 60,
+    width: wp('14%'),
+    height: hp('7%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -259,18 +284,19 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Bold',
     fontSize: 22,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: hp('2%'),
   },
   optionContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 15,
+    marginBottom: hp('2%'),
   },
   optionOne: {
     backgroundColor: '#E8E8E8',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 165,
+    height: hp('21%'),
+    width: wp('41.5%'),
     marginRight: 10,
     borderRadius: 15,
     position: 'relative',
@@ -280,6 +306,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8E8E8',
     alignItems: 'center',
     justifyContent: 'center',
+    height: hp('21%'),
+    width: wp('41.5%'),
     borderRadius: 15,
     position: 'relative',
     overflow: 'hidden',
@@ -288,7 +316,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 5,
     bottom: 115,
-    // backgroundColor: '#AEAEAE',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -304,7 +331,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 5,
     bottom: 115,
-    // backgroundColor: '#AEAEAE',
     zIndex: 1,
     borderRadius: 50,
     width: 30,
@@ -323,33 +349,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#355FFE',
   },
   imageOne: {
-    height: 165,
-    width: 165,
+    height: hp('21%'),
+    width: wp('41.5%'),
   },
   imageTwo: {
-    height: 165,
-    width: 165,
-  },
-  answerBar: {
-    flexDirection: 'row',
-    backgroundColor: '#E8E8E8',
-    borderRadius: 10,
-    position: 'relative',
-    overflow: 'hidden',
-    width: '87%',
-    marginBottom: 35,
-    height: 50,
-    alignSelf: 'center',
+    height: hp('21%'),
+    width: wp('41.5%'),
   },
   commentSectionMain: {},
   commentSection: {
     flexDirection: 'row',
-    paddingHorizontal: 25,
+    paddingHorizontal: wp('7%'),
   },
   profileText: {
     marginRight: 20,
-    width: 40,
-    height: 40,
+    width: wp('10%'),
+    height: hp('5%'),
     backgroundColor: '#7F48E2',
     justifyContent: 'center',
     textAlign: 'center',
@@ -403,8 +418,8 @@ const styles = StyleSheet.create({
     width: '87%',
     alignSelf: 'center',
     backgroundColor: '#E8E8E8',
-    paddingHorizontal: 15,
-    paddingVertical: 7,
+    paddingHorizontal: wp('4%'),
+    paddingVertical: hp('0.5%'),
     borderRadius: 10,
     marginBottom: 10,
     marginTop: 10,
@@ -412,15 +427,15 @@ const styles = StyleSheet.create({
   inputText: {
     fontFamily: 'Inter-Medium',
     fontSize: 16,
-    width: '80%',
+    width: wp('65%'),
   },
   sendBtn: {
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: wp('10%'),
+    height: hp('5%'),
   },
   disabledOption: {
     opacity: 0.5,
@@ -432,13 +447,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: 'relative',
     overflow: 'hidden',
-    width: '87%',
-    marginBottom: 20,
+    width: wp('86.5%'),
+    marginBottom: hp('4%'),
   },
   answered: {
     backgroundColor: '#355FFE',
     justifyContent: 'center',
-    paddingVertical: 16,
+    paddingVertical: hp('2%'),
   },
   answeredText: {
     textAlign: 'center',

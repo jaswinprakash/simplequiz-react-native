@@ -10,6 +10,10 @@ import {
 import React, {useState} from 'react';
 import QuizCards from '../includes/QuizCards';
 import SearchLogo from '../../assets/icons/search.svg';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function Home({navigation}) {
   const [categories, setCategories] = useState([
@@ -17,6 +21,7 @@ export default function Home({navigation}) {
     {id: 2, name: 'Branding'},
     {id: 3, name: 'Animation'},
     {id: 4, name: 'Website'},
+    {id: 5, name: 'Application'},
   ]);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -86,7 +91,7 @@ export default function Home({navigation}) {
               />
             </TouchableOpacity>
             <TouchableOpacity style={styles.searchContainer}>
-              <SearchLogo width={25} height={25} />
+              <SearchLogo width={wp('6%')} height={hp('6%')} />
             </TouchableOpacity>
           </View>
           <View>
@@ -116,52 +121,53 @@ const styles = StyleSheet.create({
   },
   scrollContainer: {
     flexGrow: 1,
-    paddingBottom: '8%',
+    paddingBottom: 50,
   },
   contentContainer: {
-    paddingBottom: 20,
+    paddingBottom: 50,
   },
   navbarMain: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingHorizontal: wp('5%'),
+    paddingVertical: hp('3%'),
   },
   profile: {
     height: undefined,
-    width: 145,
+    width: wp('32%'),
     aspectRatio: 137 / 56,
   },
   searchContainer: {
     backgroundColor: '#fff',
-    borderRadius: 50,
-    width: 60,
-    height: 60,
+    borderRadius: wp('13%') / 2,
+    width: wp('13%'),
+    height: wp('13%'),
     alignItems: 'center',
     justifyContent: 'center',
   },
   categoryView: {
     backgroundColor: '#fff',
-    height: 50,
-    borderRadius: 15,
-    marginRight: 10,
-    width: 100,
+    height: hp('6%'),
+    borderRadius: hp('2%'),
+    marginRight: wp('2.5%'),
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 80,
+    marginBottom: hp('13%'),
   },
   categoryText: {
     fontFamily: 'Inter-Medium',
-    fontSize: 17,
+    fontSize: hp('2%'),
     color: '#A6A6A6',
+    marginLeft: wp('4%'),
+    marginRight: wp('4%'),
   },
   filters: {
     paddingLeft: 20,
   },
   bottomCard: {
     backgroundColor: '#fff',
-    height: '6%',
+    height: hp('6%'),
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     position: 'absolute',
@@ -174,27 +180,27 @@ const styles = StyleSheet.create({
   },
   cardOne: {
     backgroundColor: '#eee',
-    height: '6%',
+    height: hp('6%'),
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     position: 'absolute',
-    bottom: 380,
+    bottom: 355,
     left: 35,
     right: 0,
-    width: '82%',
+    width: wp('82%'),
     elevation: 4,
     zIndex: -1,
   },
   cardTwo: {
     backgroundColor: '#eee',
-    height: '6%',
+    height: hp('6%'),
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
     position: 'absolute',
-    bottom: 397,
+    bottom: 380,
     left: 55,
     right: 0,
-    width: '70%',
+    width: wp('70%'),
     elevation: 4,
     zIndex: -2,
   },

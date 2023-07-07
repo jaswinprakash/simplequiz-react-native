@@ -8,6 +8,10 @@ import {
   Image,
 } from 'react-native';
 import CloseLogo from '../../assets/icons/Close.svg';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function MyModal({
   isVisible,
@@ -66,16 +70,16 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     backgroundColor: 'white',
-    paddingVertical: 25,
-    paddingHorizontal: 40,
+    paddingVertical: wp('7%'),
+    paddingHorizontal: hp('5.5%'),
     borderRadius: 20,
   },
   backBtn: {
-    marginTop: 10,
+    marginTop: hp('1%'),
     backgroundColor: '#355FFE',
-    paddingVertical: 20,
+    paddingVertical: wp('5%'),
     borderRadius: 10,
-    width: 180,
+    width: wp('48%'),
     alignSelf: 'center',
   },
   backBtnTxt: {
@@ -91,20 +95,21 @@ const styles = StyleSheet.create({
     color: '#000',
     fontSize: 20,
     textAlign: 'center',
-    width: 250,
-    marginBottom: 10,
+    width: wp('64%'),
+    marginBottom: hp('1%'),
   },
   subText: {
     fontFamily: 'Inter-Medium',
     fontSize: 15,
-    width: 250,
+    width: wp('64'),
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: hp('1%'),
   },
   profileImg: {
-    width: 150,
+    width: wp('33%'),
+    height: undefined,
     aspectRatio: 138 / 138,
     alignSelf: 'center',
-    marginBottom: 40,
+    marginBottom: hp('10%'),
   },
 });

@@ -8,6 +8,10 @@ import {
 } from 'react-native';
 import React, {useState} from 'react';
 import SendLogo from '../../assets/icons/Send.svg';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 
 export default function QuizCards({question, navigation, onOptionSelection}) {
   const [selectedOption, setSelectedOption] = useState(null);
@@ -120,7 +124,8 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
           <TextInput
             style={styles.inputText}
             placeholder="Share you think"
-            placeholderTextColor="#A6A6A6"></TextInput>
+            placeholderTextColor="#A6A6A6"
+          />
 
           <TouchableOpacity
             style={styles.sendBtn}
@@ -132,7 +137,7 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
                 balancePercentage,
               })
             }>
-            <SendLogo width={27} height={27} />
+            <SendLogo width={wp('6%')} height={hp('3%')} />
           </TouchableOpacity>
         </View>
       </View>
@@ -143,27 +148,28 @@ export default function QuizCards({question, navigation, onOptionSelection}) {
 const styles = StyleSheet.create({
   questionContainer: {
     backgroundColor: '#fff',
-    width: '92%',
+    width: wp('92%'),
     borderRadius: 15,
     alignSelf: 'center',
   },
   questionText: {
     color: '#000',
     fontFamily: 'Inter-Bold',
-    fontSize: 19,
+    fontSize: wp('5%'),
     textAlign: 'center',
-    paddingVertical: 20,
+    paddingVertical: hp('2%'),
   },
   optionContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: hp('1%'),
   },
   singleViewOne: {
     backgroundColor: '#E8E8E8',
     alignItems: 'center',
     justifyContent: 'center',
-    height: 165,
+    height: hp('21%'),
+    width: wp('41.5%'),
     marginRight: 10,
     borderRadius: 15,
     position: 'relative',
@@ -173,17 +179,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#E8E8E8',
     alignItems: 'center',
     justifyContent: 'center',
+    height: hp('21%'),
+    width: wp('41.5%'),
     borderRadius: 15,
     position: 'relative',
     overflow: 'hidden',
   },
   imageOne: {
-    height: 165,
-    width: 165,
+    height: hp('21%'),
+    width: wp('41.5%'),
   },
   imageTwo: {
-    height: 165,
-    width: 165,
+    height: hp('21%'),
+    width: wp('41.5%'),
   },
 
   firstText: {
@@ -230,13 +238,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     position: 'relative',
     overflow: 'hidden',
-    width: '94%',
-    marginBottom: 20,
+    width: wp('86%'),
+    marginBottom: hp('3%'),
   },
   answered: {
     backgroundColor: '#355FFE',
     justifyContent: 'center',
-    paddingVertical: 16,
+    paddingVertical: hp('2%'),
   },
   answeredText: {
     textAlign: 'center',
@@ -261,22 +269,22 @@ const styles = StyleSheet.create({
     width: '94%',
     alignSelf: 'center',
     backgroundColor: '#E8E8E8',
-    paddingHorizontal: 15,
-    paddingVertical: 7,
+    paddingHorizontal: wp('4%'),
+    paddingVertical: hp('0.5%'),
     borderRadius: 10,
     marginBottom: 10,
   },
   inputText: {
     fontFamily: 'Inter-Medium',
-    fontSize: 16,
-    width: '80%',
+    fontSize: hp('2%'),
+    width: wp('65%'),
   },
   sendBtn: {
     backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 8,
-    width: 40,
-    height: 40,
+    width: wp('10%'),
+    height: hp('5%'),
   },
 });
